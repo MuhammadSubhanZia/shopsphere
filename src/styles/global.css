@@ -1,0 +1,104 @@
+/* Global base styles and shared helpers */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--ss-font-body);
+  background-color: var(--ss-bg);
+  color: var(--ss-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ss-font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--ss-accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(255, 90, 54, 0.45);
+  outline-offset: 2px;
+}
+
+/* ---------- App shell (sticky footer layout using Flexbox) ---------- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1 0 auto;
+}
+
+/* ---------- Reusable building blocks ---------- */
+.ss-card {
+  background: var(--ss-surface);
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  box-shadow: var(--ss-shadow-sm);
+}
+
+.ss-section {
+  padding: 3.5rem 0;
+}
+
+.ss-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ss-accent-dark);
+}
+
+.ss-muted {
+  color: var(--ss-muted);
+}
+
+/* ---------- Motion ---------- */
+@keyframes ss-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ss-fade-up {
+  animation: ss-fade-up 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

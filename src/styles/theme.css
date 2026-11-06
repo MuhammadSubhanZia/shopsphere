@@ -1,0 +1,159 @@
+/*
+  ShopSphere design tokens.
+  Loaded AFTER Bootstrap so these custom properties override Bootstrap's defaults.
+*/
+:root {
+  /* Brand palette */
+  --ss-ink: #14181f;
+  --ss-ink-soft: #3d4655;
+  --ss-muted: #6b7587;
+  --ss-bg: #faf7f2;
+  --ss-surface: #ffffff;
+  --ss-line: #e8e2d8;
+
+  --ss-accent: #ff5a36;
+  --ss-accent-dark: #e0431f;
+  --ss-accent-soft: #ffe9e2;
+  --ss-teal: #0f766e;
+  --ss-teal-soft: #d9f1ee;
+
+  --ss-success: #1e9e6a;
+  --ss-warning: #f0a92b;
+  --ss-danger: #d64545;
+
+  /* Shape and depth */
+  --ss-radius-sm: 8px;
+  --ss-radius: 14px;
+  --ss-radius-lg: 22px;
+  --ss-shadow-sm: 0 1px 2px rgba(20, 24, 31, 0.06), 0 1px 3px rgba(20, 24, 31, 0.04);
+  --ss-shadow: 0 6px 20px rgba(20, 24, 31, 0.08);
+  --ss-shadow-lg: 0 18px 40px rgba(20, 24, 31, 0.14);
+
+  /* Typography */
+  --ss-font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ss-font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+
+  /* Bootstrap overrides */
+  --bs-body-font-family: var(--ss-font-body);
+  --bs-body-font-size: 0.97rem;
+  --bs-body-color: #14181f;
+  --bs-body-color-rgb: 20, 24, 31;
+  --bs-body-bg: #faf7f2;
+  --bs-body-bg-rgb: 250, 247, 242;
+  --bs-heading-color: #14181f;
+  --bs-primary: #ff5a36;
+  --bs-primary-rgb: 255, 90, 54;
+  --bs-link-color: #e0431f;
+  --bs-link-color-rgb: 224, 67, 31;
+  --bs-link-hover-color: #ff5a36;
+  --bs-link-hover-color-rgb: 255, 90, 54;
+  --bs-border-color: #e8e2d8;
+  --bs-border-radius: 10px;
+  --bs-secondary-color: #6b7587;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--ss-accent);
+  --bs-btn-border-color: var(--ss-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ss-accent-dark);
+  --bs-btn-hover-border-color: var(--ss-accent-dark);
+  --bs-btn-focus-shadow-rgb: 255, 90, 54;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ss-accent-dark);
+  --bs-btn-active-border-color: var(--ss-accent-dark);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--ss-accent);
+  --bs-btn-disabled-border-color: var(--ss-accent);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--ss-accent-dark);
+  --bs-btn-border-color: var(--ss-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ss-accent);
+  --bs-btn-hover-border-color: var(--ss-accent);
+  --bs-btn-focus-shadow-rgb: 255, 90, 54;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ss-accent-dark);
+  --bs-btn-active-border-color: var(--ss-accent-dark);
+  --bs-btn-disabled-color: var(--ss-accent);
+  --bs-btn-disabled-border-color: var(--ss-accent);
+}
+
+.btn-dark {
+  --bs-btn-bg: var(--ss-ink);
+  --bs-btn-border-color: var(--ss-ink);
+  --bs-btn-hover-bg: #000;
+  --bs-btn-hover-border-color: #000;
+  --bs-btn-active-bg: #000;
+  --bs-btn-active-border-color: #000;
+}
+
+.btn-outline-dark {
+  --bs-btn-color: var(--ss-ink);
+  --bs-btn-border-color: var(--ss-ink);
+  --bs-btn-hover-bg: var(--ss-ink);
+  --bs-btn-hover-border-color: var(--ss-ink);
+  --bs-btn-active-bg: var(--ss-ink);
+  --bs-btn-active-border-color: var(--ss-ink);
+}
+
+/* ---------- Forms ---------- */
+.form-control,
+.form-select {
+  border-radius: var(--ss-radius-sm);
+  padding: 0.6rem 0.85rem;
+  background-color: var(--ss-surface);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--ss-accent);
+  box-shadow: 0 0 0 0.25rem rgba(255, 90, 54, 0.16);
+}
+
+.form-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ss-ink-soft);
+}
+
+.form-check-input:checked {
+  background-color: var(--ss-accent);
+  border-color: var(--ss-accent);
+}
+
+.form-check-input:focus {
+  border-color: var(--ss-accent);
+  box-shadow: 0 0 0 0.25rem rgba(255, 90, 54, 0.16);
+}
+
+/* ---------- Pagination, badges, cards ---------- */
+.pagination {
+  --bs-pagination-color: var(--ss-ink);
+  --bs-pagination-hover-color: var(--ss-accent-dark);
+  --bs-pagination-active-bg: var(--ss-accent);
+  --bs-pagination-active-border-color: var(--ss-accent);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(255, 90, 54, 0.16);
+}
+
+.card {
+  --bs-card-border-color: var(--ss-line);
+  --bs-card-border-radius: var(--ss-radius);
+}
+
+/* ---------- Colour utilities ---------- */
+.text-accent { color: var(--ss-accent-dark) !important; }
+.text-teal { color: var(--ss-teal) !important; }
+.bg-accent-soft { background-color: var(--ss-accent-soft) !important; }
+.bg-teal-soft { background-color: var(--ss-teal-soft) !important; }
+.bg-ink { background-color: var(--ss-ink) !important; color: #fff; }
+.font-display { font-family: var(--ss-font-display); }
