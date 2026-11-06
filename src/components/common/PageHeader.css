@@ -1,0 +1,20 @@
+.ss-page-header {
+  padding: 2.75rem 0 2.25rem;
+  background:
+    radial-gradient(900px 260px at 90% -20%, var(--ss-accent-soft), transparent 70%),
+    var(--ss-bg);
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-page-header__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+}
+
+.ss-page-header__subtitle {
+  margin: 0.5rem 0 0;
+  max-width: 42rem;
+  color: var(--ss-muted);
+  font-size: 1.05rem;
+}
