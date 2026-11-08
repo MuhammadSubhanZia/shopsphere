@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Logo from '../common/Logo.jsx';
+import { selectCartCount } from '../../store/slices/cartSlice.js';
+import { selectWishlistCount } from '../../store/slices/wishlistSlice.js';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -22,9 +25,9 @@ export default function Navbar() {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
-  // Placeholder counts – these are connected to the Redux store in the next phase.
-  const cartCount = 0;
-  const wishlistCount = 0;
+  // Badge counts come straight from the Redux store.
+  const cartCount = useSelector(selectCartCount);
+  const wishlistCount = useSelector(selectWishlistCount);
 
   const closeMenu = () => setMenuOpen(false);
 
