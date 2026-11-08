@@ -1,0 +1,101 @@
+.ss-timeline {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-timeline__step {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+/* Connector line between the dots */
+.ss-timeline__step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 24px);
+  width: calc(100% - 48px);
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ss-line);
+}
+
+.ss-timeline__step.is-done:not(:last-child)::after {
+  background: var(--ss-success);
+}
+
+.ss-timeline__dot {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--ss-line);
+  border-radius: 50%;
+  background: var(--ss-surface);
+  color: var(--ss-muted);
+  font-size: 1.1rem;
+}
+
+.ss-timeline__step.is-done .ss-timeline__dot {
+  border-color: var(--ss-success);
+  background: var(--ss-success);
+  color: #fff;
+}
+
+.ss-timeline__step.is-current .ss-timeline__dot {
+  border-color: var(--ss-accent);
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+  box-shadow: 0 0 0 6px rgba(255, 90, 54, 0.14);
+}
+
+.ss-timeline__step.is-cancelled .ss-timeline__dot {
+  border-color: var(--ss-danger);
+  background: #fde8e8;
+  color: var(--ss-danger);
+  box-shadow: 0 0 0 6px rgba(214, 69, 69, 0.12);
+}
+
+.ss-timeline__text strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.ss-timeline__text small {
+  display: block;
+  color: var(--ss-muted);
+}
+
+.ss-timeline__step.is-todo .ss-timeline__text strong {
+  color: var(--ss-muted);
+}
+
+/* Phones: vertical timeline */
+@media (max-width: 575.98px) {
+  .ss-timeline {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ss-timeline__step {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .ss-timeline__step:not(:last-child)::after {
+    top: 44px;
+    left: 20px;
+    width: 3px;
+    height: calc(100% - 20px + 1.25rem);
+  }
+}

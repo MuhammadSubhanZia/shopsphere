@@ -1,0 +1,25 @@
+body.modal-open {
+  overflow: hidden;
+}
+
+.ss-modal .modal-content {
+  border: 0;
+  border-radius: var(--ss-radius-lg);
+  box-shadow: var(--ss-shadow-lg);
+  outline: none;
+  animation: ss-fade-up 0.2s ease both;
+}
+
+.ss-modal .modal-header,
+.ss-modal .modal-footer {
+  border-color: var(--ss-line);
+}
+
+.ss-modal .modal-title {
+  font-weight: 800;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+  background: var(--ss-ink);
+}
