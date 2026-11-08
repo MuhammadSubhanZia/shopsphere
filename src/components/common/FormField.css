@@ -1,0 +1,42 @@
+.ss-field {
+  margin-bottom: 1rem;
+}
+
+.ss-field__password {
+  position: relative;
+}
+
+.ss-field__password .form-control {
+  padding-right: 2.9rem;
+}
+
+.ss-field__toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ss-muted);
+}
+
+.ss-field__toggle:hover {
+  background: var(--ss-bg);
+  color: var(--ss-ink);
+}
+
+.ss-field .form-control.is-invalid,
+.ss-field .form-select.is-invalid {
+  border-color: var(--ss-danger);
+  background-image: none;
+}
+
+.ss-field .invalid-feedback {
+  font-size: 0.8rem;
+  font-weight: 600;
+}

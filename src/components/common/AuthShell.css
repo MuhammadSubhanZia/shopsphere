@@ -1,0 +1,127 @@
+.ss-auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 980px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-surface);
+  box-shadow: var(--ss-shadow);
+}
+
+@media (min-width: 992px) {
+  .ss-auth {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+}
+
+.ss-auth__brand {
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.5rem;
+  background:
+    radial-gradient(420px 260px at 100% 0%, rgba(255, 90, 54, 0.35), transparent 70%),
+    var(--ss-ink);
+  color: #fff;
+}
+
+.ss-auth__brand h2 {
+  margin: 0 0 1.25rem;
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+
+.ss-auth__brand ul {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #d8d3c8;
+}
+
+.ss-auth__brand ul i {
+  margin-right: 0.5rem;
+  color: var(--ss-accent);
+}
+
+.ss-auth__brand small {
+  color: #8f897e;
+}
+
+.ss-auth__panel {
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .ss-auth__panel {
+    padding: 2.75rem 3rem;
+  }
+}
+
+.ss-auth__title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.ss-auth__subtitle {
+  margin: 0.4rem 0 1.75rem;
+  color: var(--ss-muted);
+}
+
+.ss-auth__footer {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  color: var(--ss-muted);
+}
+
+.ss-auth__footer a {
+  font-weight: 800;
+}
+
+/* Demo account helper */
+.ss-demo {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--ss-line);
+  border-radius: var(--ss-radius-sm);
+  background: var(--ss-bg);
+  font-size: 0.85rem;
+}
+
+.ss-demo strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ss-demo .btn {
+  --bs-btn-padding-y: 0.2rem;
+  --bs-btn-font-size: 0.78rem;
+}
+
+/* Password checklist */
+.ss-pw-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 0.75rem;
+  margin: -0.35rem 0 1rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ss-muted);
+}
+
+.ss-pw-rules li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ss-pw-rules li.is-met {
+  color: var(--ss-success);
+}
