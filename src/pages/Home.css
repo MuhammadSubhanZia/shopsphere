@@ -1,0 +1,236 @@
+/* ---------- Hero ---------- */
+.ss-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 4.5rem;
+  background:
+    radial-gradient(700px 360px at 85% 10%, var(--ss-accent-soft), transparent 70%),
+    radial-gradient(500px 300px at 0% 100%, var(--ss-teal-soft), transparent 70%),
+    var(--ss-bg);
+}
+
+.ss-hero__title {
+  margin: 0.75rem 0 1.25rem;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.02;
+}
+
+.ss-hero__highlight {
+  color: var(--ss-accent);
+}
+
+.ss-hero__lead {
+  max-width: 34rem;
+  margin-bottom: 1.75rem;
+  font-size: 1.12rem;
+  color: var(--ss-ink-soft);
+}
+
+.ss-hero__code {
+  margin: 1.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ss-muted);
+}
+
+.ss-hero__visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 440px;
+  margin-left: auto;
+  padding: 1rem;
+  border-radius: var(--ss-radius-lg);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--ss-line);
+  box-shadow: var(--ss-shadow);
+}
+
+.ss-hero__tile:nth-child(even) {
+  transform: translateY(1.5rem);
+}
+
+.ss-hero__tile .ss-product-image i {
+  font-size: 3.4rem;
+}
+
+.ss-hero__float {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--ss-surface);
+  box-shadow: var(--ss-shadow);
+  font-size: 0.82rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ss-hero__float .bi-star-fill {
+  color: var(--ss-warning);
+}
+
+.ss-hero__float .bi-truck {
+  color: var(--ss-teal);
+}
+
+.ss-hero__float--top {
+  top: -14px;
+  left: -22px;
+}
+
+.ss-hero__float--bottom {
+  right: -14px;
+  bottom: -14px;
+}
+
+/* ---------- Perks strip ---------- */
+.ss-perks {
+  padding: 1.5rem 0;
+  background: var(--ss-surface);
+  border-top: 1px solid var(--ss-line);
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-perk {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.ss-perk > i {
+  display: grid;
+  place-items: center;
+  flex: 0 0 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+  font-size: 1.3rem;
+}
+
+.ss-perk strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.ss-perk span {
+  font-size: 0.82rem;
+  color: var(--ss-muted);
+}
+
+/* ---------- Section headings ---------- */
+.ss-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ss-section-head h2 {
+  margin: 0.15rem 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+}
+
+.ss-link-arrow {
+  font-weight: 800;
+  white-space: nowrap;
+  color: var(--ss-ink);
+}
+
+.ss-link-arrow:hover {
+  color: var(--ss-accent-dark);
+}
+
+.ss-link-arrow i {
+  transition: transform 0.2s ease;
+}
+
+.ss-link-arrow:hover i {
+  transform: translateX(4px);
+}
+
+/* ---------- Category tiles ---------- */
+.ss-category-tile {
+  --h: var(--tint, 20);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  height: 100%;
+  padding: 1.1rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+  color: var(--ss-ink);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ss-category-tile:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--h) 70% 70%);
+  box-shadow: var(--ss-shadow);
+  color: var(--ss-ink);
+}
+
+.ss-category-tile__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.7rem;
+  border-radius: 16px;
+  background: hsl(var(--h) 85% 92%);
+  color: hsl(var(--h) 55% 30%);
+  font-size: 1.5rem;
+}
+
+.ss-category-tile small {
+  color: var(--ss-muted);
+}
+
+/* ---------- Deals ---------- */
+.ss-deals {
+  margin: 1rem 0 0;
+  background: linear-gradient(180deg, transparent, var(--ss-accent-soft) 40%, transparent);
+}
+
+/* ---------- Call to action ---------- */
+.ss-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2.5rem;
+  border-radius: var(--ss-radius-lg);
+  background: linear-gradient(120deg, var(--ss-ink), #2a3242);
+  color: #fff;
+}
+
+.ss-cta h2 {
+  margin: 0 0 0.5rem;
+  color: #fff;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.ss-cta p {
+  max-width: 36rem;
+  margin: 0;
+  color: #d8d3c8;
+}
+
+.ss-cta strong {
+  color: #fff;
+}
+
+@media (max-width: 575.98px) {
+  .ss-cta {
+    padding: 1.75rem 1.25rem;
+  }
+}
