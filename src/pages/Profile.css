@@ -1,0 +1,63 @@
+.ss-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.ss-profile-card__avatar {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  background: var(--ss-accent);
+  color: #fff;
+  font-family: var(--ss-font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  box-shadow: 0 0 0 8px var(--ss-accent-soft);
+}
+
+.ss-profile-card h2 {
+  margin: 0.4rem 0 0;
+  font-size: 1.35rem;
+}
+
+.ss-profile-card p {
+  margin: 0;
+  color: var(--ss-muted);
+  word-break: break-all;
+}
+
+.ss-profile-card__since {
+  margin-top: 0.5rem !important;
+  font-size: 0.82rem;
+}
+
+.ss-profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin: 1.25rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--ss-line);
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-profile-stats strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.ss-profile-stats span {
+  font-size: 0.8rem;
+  color: var(--ss-muted);
+}
+
+.ss-profile-card .d-grid {
+  width: 100%;
+}
