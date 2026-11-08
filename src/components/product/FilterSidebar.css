@@ -1,0 +1,142 @@
+.ss-filters {
+  position: sticky;
+  top: 7.5rem;
+}
+
+.ss-filters__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius-sm);
+  background: var(--ss-surface);
+  font-weight: 800;
+}
+
+.ss-filters__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 0.3rem;
+  border-radius: 50%;
+  background: var(--ss-accent);
+}
+
+.ss-filters__panel {
+  padding: 1.1rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+.ss-filters__group {
+  margin-bottom: 1.4rem;
+}
+
+.ss-filters__group h2 {
+  margin: 0 0 0.7rem;
+  font-family: var(--ss-font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ss-muted);
+}
+
+.ss-filters__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-filter-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ss-ink-soft);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.ss-filter-link:hover {
+  background: var(--ss-bg);
+}
+
+.ss-filter-link.is-active {
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+  font-weight: 800;
+}
+
+.ss-filter-link small {
+  color: var(--ss-muted);
+  font-weight: 700;
+}
+
+.ss-filters__range {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ss-filters__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.ss-chip {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--ss-line);
+  border-radius: 999px;
+  background: var(--ss-surface);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ss-ink-soft);
+  transition: all 0.15s ease;
+}
+
+.ss-chip:hover {
+  border-color: var(--ss-accent);
+}
+
+.ss-chip.is-active {
+  background: var(--ss-accent);
+  border-color: var(--ss-accent);
+  color: #fff;
+}
+
+.ss-filters__hint {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ss-muted);
+}
+
+/* On small screens the panel collapses under the "Filters" button */
+@media (max-width: 991.98px) {
+  .ss-filters {
+    position: static;
+  }
+
+  .ss-filters__panel {
+    display: none;
+    margin-top: 0.5rem;
+  }
+
+  .ss-filters__panel.is-open {
+    display: block;
+  }
+}

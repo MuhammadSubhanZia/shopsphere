@@ -1,0 +1,25 @@
+.ss-pagination .page-link {
+  min-width: 40px;
+  margin: 0 2px;
+  border-radius: 10px !important;
+  border: 1px solid var(--ss-line);
+  background: var(--ss-surface);
+  font-weight: 700;
+  text-align: center;
+}
+
+.ss-pagination .page-link:hover {
+  background: var(--ss-accent-soft);
+  border-color: var(--ss-accent);
+}
+
+.ss-pagination .page-item.active .page-link {
+  background: var(--ss-accent);
+  border-color: var(--ss-accent);
+  color: #fff;
+}
+
+.ss-pagination .page-item.disabled .page-link {
+  background: transparent;
+  color: #b6b1a6;
+}
