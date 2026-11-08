@@ -139,3 +139,118 @@ export async function deleteCategory(id) {
   write('categories', list.filter((c) => c.id !== category.id));
   return category.id;
 }
+
+// ---------------------------------------------------------------------------
+// Users / authentication
+//
+// NOTE: passwords are stored in plain text ONLY because this is a throw-away mock.
+// The real back-end will hash them (bcrypt) and hand out signed tokens (JWT).
+// ---------------------------------------------------------------------------
+
+const SEED_USERS = [
+  {
+    id: 1,
+    name: 'Admin User',
+    email: 'admin@shopsphere.pk',
+    password: 'Admin@123',
+    role: 'admin',
+    phone: '0300-1000001',
+    address: 'ShopSphere HQ, Gulberg III',
+    city: 'Lahore',
+    createdAt: '2026-09-01',
+  },
+  {
+    id: 2,
+    name: 'Ayesha Khan',
+    email: 'user@shopsphere.pk',
+    password: 'User@1234',
+    role: 'customer',
+    phone: '0321-1234567',
+    address: '12-B, Model Town',
+    city: 'Lahore',
+    createdAt: '2026-09-10',
+  },
+  {
+    id: 3,
+    name: 'Bilal Ahmed',
+    email: 'bilal@example.com',
+    password: 'User@1234',
+    role: 'customer',
+    phone: '0333-7654321',
+    address: 'Flat 4, Clifton Block 5',
+    city: 'Karachi',
+    createdAt: '2026-09-14',
+  },
+  {
+    id: 4,
+    name: 'Sara Malik',
+    email: 'sara@example.com',
+    password: 'User@1234',
+    role: 'customer',
+    phone: '0345-1112233',
+    address: 'House 21, F-8/3',
+    city: 'Islamabad',
+    createdAt: '2026-09-22',
+  },
+];
+
+const readUsers = () => read('users', SEED_USERS);
+
+// Never send the password back to the UI.
+const toPublicUser = ({ password, ...user }) => user;
+
+export async function registerUser({ name, email, password, phone }) {
+  await delay(500);
+  const users = readUsers();
+  const normalizedEmail = email.trim().toLowerCase();
+  if (users.some((u) => u.email === normalizedEmail)) {
+    throw new ApiError('An account with this email already exists', 409);
+  }
+  const user = {
+    id: nextId(users),
+    name: name.trim(),
+    email: normalizedEmail,
+    password,
+    role: 'customer',
+    phone: phone.trim(),
+    address: '',
+    city: '',
+    createdAt: today(),
+  };
+  write('users', [...users, user]);
+  return toPublicUser(user);
+}
+
+export async function loginUser({ email, password }) {
+  await delay(500);
+  const user = readUsers().find((u) => u.email === email.trim().toLowerCase());
+  if (!user || user.password !== password) throw new ApiError('Incorrect email or password', 401);
+  return toPublicUser(user);
+}
+
+export async function updateUserProfile(id, { name, phone, address, city, currentPassword, newPassword }) {
+  await delay(400);
+  const users = readUsers();
+  const user = users.find((u) => u.id === Number(id));
+  if (!user) throw new ApiError('User not found', 404);
+
+  // Only these fields can be edited by the user (role and email are protected).
+  const updated = { ...user };
+  if (name !== undefined) updated.name = name.trim();
+  if (phone !== undefined) updated.phone = phone.trim();
+  if (address !== undefined) updated.address = address.trim();
+  if (city !== undefined) updated.city = city;
+
+  if (newPassword) {
+    if (user.password !== currentPassword) throw new ApiError('Your current password is incorrect', 400);
+    updated.password = newPassword;
+  }
+
+  write('users', users.map((u) => (u.id === updated.id ? updated : u)));
+  return toPublicUser(updated);
+}
+
+export async function getUsers() {
+  await delay(250);
+  return readUsers().map(toPublicUser);
+}
