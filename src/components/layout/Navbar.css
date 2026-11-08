@@ -137,3 +137,127 @@
     margin-top: 0.75rem;
   }
 }
+
+/* ---------- Account menu ---------- */
+.ss-user-menu {
+  position: relative;
+}
+
+.ss-avatar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.6rem 0.2rem 0.2rem;
+  border: 1px solid var(--ss-line);
+  border-radius: 999px;
+  background: var(--ss-surface);
+  color: var(--ss-ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: border-color 0.15s ease;
+}
+
+.ss-avatar-btn:hover {
+  border-color: var(--ss-accent);
+}
+
+.ss-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ss-accent);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.ss-user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  padding: 0.4rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+  box-shadow: var(--ss-shadow-lg);
+  animation: ss-fade-up 0.18s ease both;
+}
+
+.ss-user-dropdown__head {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.75rem 0.7rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-user-dropdown__head span {
+  font-size: 0.8rem;
+  color: var(--ss-muted);
+}
+
+.ss-user-dropdown a,
+.ss-user-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.75rem;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ss-ink-soft);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.ss-user-dropdown a:hover,
+.ss-user-dropdown button:hover {
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+}
+
+/* Account list inside the mobile menu */
+.ss-mobile-account {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ss-mobile-account__name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-mobile-account__name small {
+  display: block;
+  color: var(--ss-muted);
+}
+
+.ss-mobile-account a,
+.ss-mobile-account button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.6rem 0.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--ss-ink-soft);
+  font-weight: 700;
+  text-align: left;
+}
