@@ -5,6 +5,7 @@ import cartReducer from './slices/cartSlice.js';
 import wishlistReducer from './slices/wishlistSlice.js';
 import uiReducer from './slices/uiSlice.js';
 import authReducer from './slices/authSlice.js';
+import ordersReducer from './slices/ordersSlice.js';
 import { saveState } from '../services/storage.js';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     wishlist: wishlistReducer,
     ui: uiReducer,
     auth: authReducer,
+    orders: ordersReducer,
   },
 });
 

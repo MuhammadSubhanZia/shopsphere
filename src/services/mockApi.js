@@ -10,6 +10,8 @@ import { loadState, saveState } from './storage.js';
 import { categories as seedCategories } from '../data/categories.js';
 import { products as seedProducts } from '../data/products.js';
 import { slugify } from '../utils/formatters.js';
+import { calculateTotals } from '../utils/pricing.js';
+import { ORDER_FLOW, ORDER_STATUSES, canCancel } from '../utils/orderStatus.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -253,4 +255,161 @@ export async function updateUserProfile(id, { name, phone, address, city, curren
 export async function getUsers() {
   await delay(250);
   return readUsers().map(toPublicUser);
+}
+
+// ---------------------------------------------------------------------------
+// Orders
+// ---------------------------------------------------------------------------
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const SEED_NOW = Date.parse('2026-11-06T10:00:00Z');
+
+// Builds a realistic historical order for the demo data.
+function buildSeedOrder({ id, userId, lines, status, daysAgo, paymentMethod, promoCode = null }) {
+  const user = SEED_USERS.find((u) => u.id === userId);
+  const items = lines.map(([productId, quantity]) => {
+    const p = seedProducts.find((x) => x.id === productId);
+    return { productId, name: p.name, price: p.price, quantity, category: p.category, icon: p.icon, tint: p.tint };
+  });
+  const totals = calculateTotals(items, promoCode);
+  const createdAt = new Date(SEED_NOW - daysAgo * DAY_MS).toISOString();
+  const steps = status === 'cancelled' ? ['pending', 'cancelled'] : ORDER_FLOW.slice(0, ORDER_FLOW.indexOf(status) + 1);
+
+  return {
+    id,
+    userId,
+    customer: { name: user.name, email: user.email, phone: user.phone },
+    items,
+    shipping: { fullName: user.name, phone: user.phone, address: user.address, city: user.city, postalCode: '' },
+    paymentMethod,
+    cardLast4: paymentMethod === 'card' ? '4242' : null,
+    promoCode,
+    subtotal: totals.subtotal,
+    discount: totals.discount,
+    shippingFee: totals.shippingFee,
+    total: totals.total,
+    status,
+    history: steps.map((step, i) => ({ status: step, at: new Date(Date.parse(createdAt) + i * 0.5 * DAY_MS).toISOString() })),
+    createdAt,
+  };
+}
+
+const SEED_ORDERS = [
+  buildSeedOrder({ id: 1001, userId: 2, lines: [[1, 1], [3, 1]], status: 'delivered', daysAgo: 32, paymentMethod: 'card' }),
+  buildSeedOrder({ id: 1002, userId: 3, lines: [[27, 1], [28, 2]], status: 'delivered', daysAgo: 27, paymentMethod: 'cod' }),
+  buildSeedOrder({ id: 1003, userId: 2, lines: [[31, 1], [34, 1]], status: 'delivered', daysAgo: 21, paymentMethod: 'cod' }),
+  buildSeedOrder({ id: 1004, userId: 4, lines: [[19, 2], [24, 1]], status: 'shipped', daysAgo: 6, paymentMethod: 'card', promoCode: 'SAVE10' }),
+  buildSeedOrder({ id: 1005, userId: 3, lines: [[5, 1]], status: 'processing', daysAgo: 4, paymentMethod: 'card' }),
+  buildSeedOrder({ id: 1006, userId: 2, lines: [[2, 1], [30, 1]], status: 'pending', daysAgo: 2, paymentMethod: 'cod' }),
+  buildSeedOrder({ id: 1007, userId: 4, lines: [[15, 1]], status: 'cancelled', daysAgo: 12, paymentMethod: 'cod' }),
+  buildSeedOrder({ id: 1008, userId: 3, lines: [[8, 1], [10, 1], [9, 1]], status: 'shipped', daysAgo: 3, paymentMethod: 'cod' }),
+];
+
+const readOrders = () => read('orders', SEED_ORDERS);
+
+const newestFirst = (orders) => [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+function restoreStock(items) {
+  const products = readProducts();
+  write(
+    'products',
+    products.map((p) => {
+      const line = items.find((item) => item.productId === p.id);
+      return line ? { ...p, stock: p.stock + line.quantity } : p;
+    })
+  );
+}
+
+export async function getOrdersByUser(userId) {
+  await delay(300);
+  return newestFirst(readOrders().filter((o) => o.userId === Number(userId)));
+}
+
+export async function getAllOrders() {
+  await delay(300);
+  return newestFirst(readOrders());
+}
+
+export async function createOrder({ userId, items, shipping, paymentMethod, cardLast4 = null, promoCode = null }) {
+  await delay(700);
+  if (!items?.length) throw new ApiError('Your cart is empty');
+
+  // Re-validate everything against the catalogue: a server never trusts the
+  // prices or stock levels that the browser sends.
+  const products = readProducts();
+  const lines = items.map(({ productId, quantity }) => {
+    const product = products.find((p) => p.id === productId);
+    if (!product) throw new ApiError('A product in your cart is no longer available', 404);
+    if (product.stock < quantity) {
+      throw new ApiError(
+        product.stock === 0 ? `"${product.name}" is out of stock` : `Only ${product.stock} of "${product.name}" left in stock`,
+        409
+      );
+    }
+    return {
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      quantity,
+      category: product.category,
+      icon: product.icon,
+      tint: product.tint,
+    };
+  });
+
+  const user = readUsers().find((u) => u.id === Number(userId));
+  if (!user) throw new ApiError('Please log in to place an order', 401);
+
+  const totals = calculateTotals(lines, promoCode);
+  const orders = readOrders();
+  const createdAt = new Date().toISOString();
+  const order = {
+    id: nextId(orders),
+    userId: user.id,
+    customer: { name: user.name, email: user.email, phone: user.phone },
+    items: lines,
+    shipping,
+    paymentMethod,
+    cardLast4,
+    promoCode,
+    subtotal: totals.subtotal,
+    discount: totals.discount,
+    shippingFee: totals.shippingFee,
+    total: totals.total,
+    status: 'pending',
+    history: [{ status: 'pending', at: createdAt }],
+    createdAt,
+  };
+
+  write('orders', [order, ...orders]);
+  write(
+    'products',
+    products.map((p) => {
+      const line = lines.find((l) => l.productId === p.id);
+      return line ? { ...p, stock: p.stock - line.quantity } : p;
+    })
+  );
+  return order;
+}
+
+export async function updateOrderStatus(id, status) {
+  await delay(300);
+  if (!ORDER_STATUSES.includes(status)) throw new ApiError('Invalid order status');
+  const orders = readOrders();
+  const order = orders.find((o) => o.id === Number(id));
+  if (!order) throw new ApiError('Order not found', 404);
+  if (order.status === 'cancelled') throw new ApiError('Cancelled orders cannot be changed', 409);
+  if (order.status === status) return order;
+
+  const updated = { ...order, status, history: [...order.history, { status, at: new Date().toISOString() }] };
+  write('orders', orders.map((o) => (o.id === updated.id ? updated : o)));
+  if (status === 'cancelled') restoreStock(order.items);
+  return updated;
+}
+
+export async function cancelOrder(id, userId) {
+  const order = readOrders().find((o) => o.id === Number(id) && o.userId === Number(userId));
+  if (!order) throw new ApiError('Order not found', 404);
+  if (!canCancel(order.status)) throw new ApiError('This order can no longer be cancelled', 409);
+  return updateOrderStatus(id, 'cancelled');
 }
