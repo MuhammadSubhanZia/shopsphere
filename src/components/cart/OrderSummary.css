@@ -1,0 +1,104 @@
+.ss-summary {
+  padding: 1.4rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+  box-shadow: var(--ss-shadow-sm);
+}
+
+.ss-summary__title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.ss-summary__shipping {
+  margin-bottom: 1.1rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--ss-radius-sm);
+  background: var(--ss-bg);
+  font-size: 0.85rem;
+}
+
+.ss-summary__shipping p {
+  margin: 0 0 0.5rem;
+}
+
+.ss-summary__shipping p.is-unlocked {
+  color: var(--ss-success);
+  font-weight: 800;
+}
+
+.ss-summary__shipping .progress {
+  height: 6px;
+  background: var(--ss-line);
+}
+
+.ss-summary__shipping .progress-bar {
+  background: var(--ss-accent);
+}
+
+.ss-summary__rows {
+  margin: 0;
+}
+
+.ss-summary__rows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+}
+
+.ss-summary__rows dt {
+  font-weight: 600;
+  color: var(--ss-ink-soft);
+}
+
+.ss-summary__rows dd {
+  margin: 0;
+  font-weight: 800;
+}
+
+.ss-summary__rows .is-discount dd {
+  color: var(--ss-success);
+}
+
+.ss-summary__rows .is-total {
+  margin-top: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--ss-line);
+  font-size: 1.2rem;
+}
+
+.ss-summary__rows .is-total dt {
+  color: var(--ss-ink);
+  font-weight: 800;
+}
+
+.ss-summary__promo {
+  margin-top: 1rem;
+}
+
+.ss-summary__promo-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--ss-radius-sm);
+  background: var(--ss-teal-soft);
+  color: var(--ss-teal);
+  font-size: 0.85rem;
+}
+
+.ss-summary__promo-applied button {
+  border: 0;
+  background: transparent;
+  color: var(--ss-teal);
+}
+
+.ss-summary__actions {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
