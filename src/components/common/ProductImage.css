@@ -1,0 +1,71 @@
+.ss-product-image {
+  --h: var(--tint, 20);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--ss-radius);
+  background: linear-gradient(145deg, hsl(var(--h) 90% 95%), hsl(var(--h) 80% 85%));
+  color: hsl(var(--h) 55% 30%);
+}
+
+/* Soft decorative circles */
+.ss-product-image::before,
+.ss-product-image::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: hsl(var(--h) 85% 78% / 0.5);
+}
+
+.ss-product-image::before {
+  width: 70%;
+  height: 70%;
+  top: -22%;
+  right: -22%;
+}
+
+.ss-product-image::after {
+  width: 45%;
+  height: 45%;
+  bottom: -14%;
+  left: -12%;
+  background: hsl(var(--h) 85% 88% / 0.7);
+}
+
+.ss-product-image i {
+  position: relative;
+  z-index: 1;
+  font-size: 4.2rem;
+  line-height: 1;
+  filter: drop-shadow(0 8px 10px hsl(var(--h) 60% 35% / 0.25));
+}
+
+/* Thumbnail */
+.ss-product-image--sm {
+  width: 56px;
+  flex: 0 0 56px;
+  border-radius: 12px;
+}
+
+.ss-product-image--sm i {
+  font-size: 1.5rem;
+  filter: none;
+}
+
+.ss-product-image--sm::before,
+.ss-product-image--sm::after {
+  display: none;
+}
+
+/* Detail page */
+.ss-product-image--lg {
+  border-radius: var(--ss-radius-lg);
+}
+
+.ss-product-image--lg i {
+  font-size: clamp(6rem, 18vw, 10rem);
+}

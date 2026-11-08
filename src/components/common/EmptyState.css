@@ -1,0 +1,37 @@
+.ss-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3.5rem 1rem;
+}
+
+.ss-empty__icon {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+  font-size: 2.2rem;
+}
+
+.ss-empty__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+}
+
+.ss-empty__message {
+  max-width: 30rem;
+  margin: 0 0 1.25rem;
+  color: var(--ss-muted);
+}
+
+.ss-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}

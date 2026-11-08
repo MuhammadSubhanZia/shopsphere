@@ -1,0 +1,14 @@
+.ss-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 5rem 1rem;
+  color: var(--ss-muted);
+  font-weight: 600;
+}
+
+.ss-spinner--inline {
+  padding: 1.5rem 1rem;
+}

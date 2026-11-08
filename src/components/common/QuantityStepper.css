@@ -1,0 +1,59 @@
+.ss-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--ss-line);
+  border-radius: 999px;
+  background: var(--ss-surface);
+  overflow: hidden;
+}
+
+.ss-stepper button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--ss-ink);
+  font-size: 1.15rem;
+  transition: background-color 0.15s ease;
+}
+
+.ss-stepper button:hover:not(:disabled) {
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+}
+
+.ss-stepper button:disabled {
+  color: #b6b1a6;
+  cursor: not-allowed;
+}
+
+.ss-stepper input {
+  width: 48px;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font-weight: 800;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.ss-stepper input::-webkit-outer-spin-button,
+.ss-stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ss-stepper input:focus {
+  outline: none;
+}
+
+.ss-stepper--sm button {
+  width: 32px;
+  font-size: 1rem;
+}
+
+.ss-stepper--sm input {
+  width: 38px;
+  font-size: 0.9rem;
+}
