@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Layout from './components/layout/Layout.jsx';
+import ProtectedRoute from './components/routing/ProtectedRoute.jsx';
 import { fetchProducts } from './store/slices/productsSlice.js';
 import { fetchCategories } from './store/slices/categoriesSlice.js';
 
@@ -13,6 +14,8 @@ import Cart from './pages/Cart.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
+import Checkout from './pages/Checkout.jsx';
+import OrderSuccess from './pages/OrderSuccess.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 function App() {
@@ -34,6 +37,8 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+        <Route path="/order-success/:id" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
