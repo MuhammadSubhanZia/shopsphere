@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -9,24 +9,27 @@ import AdminLayout from './components/layout/AdminLayout.jsx';
 import { fetchProducts } from './store/slices/productsSlice.js';
 import { fetchCategories } from './store/slices/categoriesSlice.js';
 
+// The home page is part of the main bundle; every other page is loaded on demand
+// (code splitting), which keeps the first download small.
 import Home from './pages/Home.jsx';
-import Products from './pages/Products.jsx';
-import ProductDetail from './pages/ProductDetail.jsx';
-import Cart from './pages/Cart.jsx';
-import Wishlist from './pages/Wishlist.jsx';
-import Login from './pages/Login.jsx';
-import Register from './pages/Register.jsx';
-import Checkout from './pages/Checkout.jsx';
-import OrderSuccess from './pages/OrderSuccess.jsx';
-import Orders from './pages/Orders.jsx';
-import OrderDetail from './pages/OrderDetail.jsx';
-import Profile from './pages/Profile.jsx';
-import NotFound from './pages/NotFound.jsx';
-import Dashboard from './pages/admin/Dashboard.jsx';
-import ManageProducts from './pages/admin/ManageProducts.jsx';
-import ManageCategories from './pages/admin/ManageCategories.jsx';
-import Inventory from './pages/admin/Inventory.jsx';
-import ManageOrders from './pages/admin/ManageOrders.jsx';
+
+const Products = lazy(() => import('./pages/Products.jsx'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail.jsx'));
+const Cart = lazy(() => import('./pages/Cart.jsx'));
+const Wishlist = lazy(() => import('./pages/Wishlist.jsx'));
+const Login = lazy(() => import('./pages/Login.jsx'));
+const Register = lazy(() => import('./pages/Register.jsx'));
+const Checkout = lazy(() => import('./pages/Checkout.jsx'));
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess.jsx'));
+const Orders = lazy(() => import('./pages/Orders.jsx'));
+const OrderDetail = lazy(() => import('./pages/OrderDetail.jsx'));
+const Profile = lazy(() => import('./pages/Profile.jsx'));
+const NotFound = lazy(() => import('./pages/NotFound.jsx'));
+const Dashboard = lazy(() => import('./pages/admin/Dashboard.jsx'));
+const ManageProducts = lazy(() => import('./pages/admin/ManageProducts.jsx'));
+const ManageCategories = lazy(() => import('./pages/admin/ManageCategories.jsx'));
+const Inventory = lazy(() => import('./pages/admin/Inventory.jsx'));
+const ManageOrders = lazy(() => import('./pages/admin/ManageOrders.jsx'));
 
 function App() {
   const dispatch = useDispatch();

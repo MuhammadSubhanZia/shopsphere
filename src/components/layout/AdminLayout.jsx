@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
+import Spinner from '../common/Spinner.jsx';
 import './AdminLayout.css';
 
 const ADMIN_LINKS = [
@@ -31,7 +33,9 @@ export default function AdminLayout() {
           </aside>
 
           <section className="ss-admin__content">
-            <Outlet />
+            <Suspense fallback={<Spinner label="Loading..." inline />}>
+              <Outlet />
+            </Suspense>
           </section>
         </div>
       </div>
