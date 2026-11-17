@@ -1,0 +1,216 @@
+.ss-admin {
+  padding: 2rem 0 1rem;
+}
+
+.ss-admin__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .ss-admin__shell {
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+/* ---------- Sidebar ---------- */
+.ss-admin__sidebar {
+  padding: 1rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+@media (min-width: 992px) {
+  .ss-admin__sidebar {
+    position: sticky;
+    top: 7.5rem;
+  }
+}
+
+.ss-admin__label {
+  margin: 0.25rem 0.5rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ss-muted);
+}
+
+.ss-admin__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ss-admin__link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  color: var(--ss-ink-soft);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.ss-admin__link:hover {
+  background: var(--ss-bg);
+  color: var(--ss-ink);
+}
+
+.ss-admin__link.active {
+  background: var(--ss-ink);
+  color: #fff;
+}
+
+.ss-admin__back {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.75rem 0.75rem 0.25rem;
+  border-top: 1px solid var(--ss-line);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ss-muted);
+}
+
+.ss-admin__back:hover {
+  color: var(--ss-accent-dark);
+}
+
+/* On small screens the sidebar becomes a scrollable row of tabs */
+@media (max-width: 991.98px) {
+  .ss-admin__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .ss-admin__label,
+  .ss-admin__back {
+    display: none;
+  }
+}
+
+/* ---------- Page header used by every admin page ---------- */
+.ss-admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ss-admin-head h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+}
+
+.ss-admin-head p {
+  margin: 0.25rem 0 0;
+  color: var(--ss-muted);
+}
+
+/* ---------- Tables ---------- */
+.ss-table-card {
+  overflow: hidden;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+.ss-table {
+  --bs-table-bg: transparent;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.ss-table thead th {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--ss-line);
+  background: var(--ss-bg);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ss-muted);
+  white-space: nowrap;
+}
+
+.ss-table tbody td {
+  padding: 0.8rem 1rem;
+  border-color: var(--ss-line);
+}
+
+.ss-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ss-table .ss-cell-product {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 220px;
+}
+
+.ss-table .ss-cell-product small {
+  display: block;
+  color: var(--ss-muted);
+}
+
+.ss-table .ss-icon-action {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--ss-line);
+  border-radius: 10px;
+  background: var(--ss-surface);
+  color: var(--ss-ink-soft);
+  transition: all 0.15s ease;
+}
+
+.ss-table .ss-icon-action:hover {
+  border-color: var(--ss-accent);
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-dark);
+}
+
+.ss-table .ss-icon-action.is-danger:hover {
+  border-color: var(--ss-danger);
+  background: #fde8e8;
+  color: var(--ss-danger);
+}
+
+.ss-admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ss-admin-toolbar .ss-admin-search {
+  position: relative;
+  flex: 1 1 240px;
+  max-width: 380px;
+}
+
+.ss-admin-toolbar .ss-admin-search i {
+  position: absolute;
+  top: 50%;
+  left: 0.9rem;
+  transform: translateY(-50%);
+  color: var(--ss-muted);
+  pointer-events: none;
+}
+
+.ss-admin-toolbar .ss-admin-search input {
+  padding-left: 2.4rem;
+  border-radius: 999px;
+}

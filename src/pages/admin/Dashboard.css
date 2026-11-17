@@ -1,0 +1,130 @@
+.ss-dash-card {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+.ss-dash-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.ss-dash-card__head h2 {
+  margin: 0;
+  font-family: var(--ss-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.ss-dash-card__head a {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* ---------- Stock alerts ---------- */
+.ss-alert-list {
+  margin: 0;
+  padding: 0.25rem 1.25rem 0.5rem;
+  list-style: none;
+}
+
+.ss-alert-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--ss-line);
+  font-weight: 700;
+}
+
+.ss-alert-list li:last-child {
+  border-bottom: 0;
+}
+
+.ss-alert-list small {
+  display: block;
+  font-weight: 500;
+  color: var(--ss-muted);
+}
+
+/* ---------- Horizontal bars ---------- */
+.ss-bars {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 1.25rem;
+  list-style: none;
+}
+
+.ss-bars li {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 90px;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+}
+
+.ss-bars__label {
+  font-weight: 700;
+}
+
+.ss-bars__track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--ss-bg);
+}
+
+.ss-bars__fill {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 999px;
+  background: hsl(var(--tint, 20) 70% 55%);
+  transition: width 0.6s ease;
+}
+
+.ss-bars__value {
+  text-align: right;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .ss-bars li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ss-bars__track {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+/* ---------- Status counts ---------- */
+.ss-status-list {
+  margin: 0;
+  padding: 0.25rem 1.25rem 0.5rem;
+  list-style: none;
+}
+
+.ss-status-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--ss-line);
+  font-weight: 700;
+}
+
+.ss-status-list li:last-child {
+  border-bottom: 0;
+}

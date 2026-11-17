@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import Layout from './components/layout/Layout.jsx';
 import ProtectedRoute from './components/routing/ProtectedRoute.jsx';
+import AdminRoute from './components/routing/AdminRoute.jsx';
+import AdminLayout from './components/layout/AdminLayout.jsx';
 import { fetchProducts } from './store/slices/productsSlice.js';
 import { fetchCategories } from './store/slices/categoriesSlice.js';
 
@@ -20,6 +22,7 @@ import Orders from './pages/Orders.jsx';
 import OrderDetail from './pages/OrderDetail.jsx';
 import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Dashboard from './pages/admin/Dashboard.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +48,9 @@ function App() {
         <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="/orders/:id" element={<ProtectedRoute><OrderDetail /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<Dashboard />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
