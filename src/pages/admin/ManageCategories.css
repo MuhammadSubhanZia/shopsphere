@@ -1,0 +1,96 @@
+.ss-cat-card {
+  --h: var(--tint, 20);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+.ss-cat-card__icon,
+.ss-cat-preview > span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: hsl(var(--h) 85% 92%);
+  color: hsl(var(--h) 55% 30%);
+  font-size: 1.6rem;
+}
+
+.ss-cat-card h2 {
+  margin: 0 0 0.2rem;
+  font-family: var(--ss-font-body);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.ss-cat-card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ss-ink-soft);
+}
+
+.ss-cat-card small {
+  color: var(--ss-muted);
+}
+
+.ss-cat-card__actions {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--ss-line);
+}
+
+/* Live preview inside the category dialog */
+.ss-cat-preview {
+  --h: var(--tint, 20);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border: 1px dashed var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-bg);
+}
+
+.ss-cat-preview small {
+  display: block;
+  color: var(--ss-muted);
+}
+
+/* Rainbow slider used to pick a colour hue (products and categories) */
+.ss-hue-range {
+  height: 0.9rem;
+  margin-top: 0.55rem;
+}
+
+.ss-hue-range::-webkit-slider-runnable-track {
+  height: 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(0 80% 60%), hsl(60 80% 55%), hsl(120 60% 50%), hsl(180 70% 50%), hsl(240 75% 62%), hsl(300 70% 60%), hsl(360 80% 60%));
+}
+
+.ss-hue-range::-moz-range-track {
+  height: 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(0 80% 60%), hsl(60 80% 55%), hsl(120 60% 50%), hsl(180 70% 50%), hsl(240 75% 62%), hsl(300 70% 60%), hsl(360 80% 60%));
+}
+
+.ss-hue-range::-webkit-slider-thumb {
+  margin-top: -0.2rem;
+  background: #fff;
+  border: 3px solid var(--ss-ink);
+}
+
+.ss-hue-range::-moz-range-thumb {
+  background: #fff;
+  border: 3px solid var(--ss-ink);
+}

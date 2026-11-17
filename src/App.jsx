@@ -24,6 +24,7 @@ import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ManageProducts from './pages/admin/ManageProducts.jsx';
+import ManageCategories from './pages/admin/ManageCategories.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
         <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<ManageProducts />} />
+          <Route path="categories" element={<ManageCategories />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
