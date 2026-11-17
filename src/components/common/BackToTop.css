@@ -1,0 +1,27 @@
+.ss-back-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ss-ink);
+  color: #fff;
+  box-shadow: var(--ss-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.18));
+  font-size: 1.2rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ss-back-top:hover {
+  background: var(--ss-accent);
+  transform: translateY(-3px);
+}
+
+.ss-back-top:focus-visible {
+  outline: 3px solid var(--ss-accent);
+  outline-offset: 3px;
+}

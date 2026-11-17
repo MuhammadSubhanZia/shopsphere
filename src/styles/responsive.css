@@ -1,0 +1,106 @@
+/* ---------- Accessibility ---------- */
+.ss-skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background: var(--ss-ink);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#main:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ss-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .ss-admin-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ss-admin-toolbar .ss-admin-search {
+    max-width: none;
+  }
+
+  .ss-admin-toolbar .form-select.w-auto {
+    width: 100% !important;
+  }
+
+  .ss-toast-host {
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
+  }
+
+  .modal-footer {
+    flex-wrap: nowrap;
+  }
+
+  .modal-footer .btn {
+    flex: 1;
+  }
+}
+
+/* Tables can scroll sideways on phones instead of breaking the layout. */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Printing (order invoice) ---------- */
+@media print {
+  .ss-header,
+  footer,
+  .ss-toast-host,
+  .ss-skip-link,
+  .ss-no-print,
+  .ss-order-head__actions .btn,
+  .breadcrumb,
+  .ss-admin__sidebar {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .ss-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .container {
+    max-width: 100% !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}

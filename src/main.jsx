@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/theme.css';
 import './styles/global.css';
+import './styles/responsive.css';
 
 import { store } from './store/index.js';
 import App from './App.jsx';
