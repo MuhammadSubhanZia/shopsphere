@@ -1,0 +1,79 @@
+.ss-inv-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-surface);
+}
+
+.ss-inv-card > i {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  font-size: 1.4rem;
+}
+
+.ss-inv-card strong {
+  display: block;
+  font-family: var(--ss-font-display);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.ss-inv-card span {
+  font-size: 0.85rem;
+  color: var(--ss-muted);
+}
+
+.ss-inv-card.is-info > i {
+  background: #e2f1fb;
+  color: #17658f;
+}
+
+.ss-inv-card.is-warning > i {
+  background: #fff3cd;
+  color: #8a6100;
+}
+
+.ss-inv-card.is-danger > i {
+  background: #fde8e8;
+  color: var(--ss-danger);
+}
+
+.ss-inv-tabs .nav-link {
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--ss-ink-soft);
+}
+
+.ss-inv-tabs .nav-link.active {
+  background: var(--ss-ink);
+  color: #fff;
+}
+
+.ss-inv-threshold {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ss-ink-soft);
+  white-space: nowrap;
+}
+
+.ss-inv-threshold input {
+  width: 4.5rem;
+}
+
+.ss-stock-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ss-stock-edit input {
+  width: 5.5rem;
+}

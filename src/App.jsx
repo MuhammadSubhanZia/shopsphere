@@ -25,6 +25,7 @@ import NotFound from './pages/NotFound.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ManageProducts from './pages/admin/ManageProducts.jsx';
 import ManageCategories from './pages/admin/ManageCategories.jsx';
+import Inventory from './pages/admin/Inventory.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="products" element={<ManageProducts />} />
           <Route path="categories" element={<ManageCategories />} />
+          <Route path="inventory" element={<Inventory />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
