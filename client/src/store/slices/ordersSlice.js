@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from '../../services/mockApi.js';
+import * as api from '../../services/api.js';
 import { logout } from './authSlice.js';
 
 export const fetchMyOrders = createAsyncThunk('orders/fetchMine', async (userId, { rejectWithValue }) => {

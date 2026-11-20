@@ -7,6 +7,9 @@ import uiReducer from './slices/uiSlice.js';
 import authReducer from './slices/authSlice.js';
 import ordersReducer from './slices/ordersSlice.js';
 import { saveState } from '../services/storage.js';
+import { setUnauthorizedHandler } from '../services/api.js';
+import { logout } from './slices/authSlice.js';
+import { showToast } from './slices/uiSlice.js';
 
 export const store = configureStore({
   reducer: {
@@ -39,5 +42,14 @@ store.subscribe(() => {
   if (auth.user !== lastUser) {
     lastUser = auth.user;
     saveState('session', auth.user);
+  }
+});
+
+// If the server says "not logged in" while someone is signed in (the session expired),
+// sign them out here too.
+setUnauthorizedHandler(() => {
+  if (store.getState().auth.user) {
+    store.dispatch(logout());
+    store.dispatch(showToast('Your session has expired. Please log in again.', 'info'));
   }
 });

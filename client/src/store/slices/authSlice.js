@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from '../../services/mockApi.js';
+import * as api from '../../services/api.js';
 import { loadState } from '../../services/storage.js';
 
 export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
@@ -18,6 +18,18 @@ export const register = createAsyncThunk('auth/register', async (details, { reje
   }
 });
 
+/**
+ * Asks the server who is logged in (the session cookie decides). Runs when the app starts,
+ * so a session that expired, or a user that was deleted, is noticed straight away.
+ */
+export const restoreSession = createAsyncThunk('auth/restoreSession', async (_, { rejectWithValue }) => {
+  try {
+    return await api.getCurrentUser();
+  } catch (error) {
+    return rejectWithValue({ message: error.message, status: error.status });
+  }
+});
+
 export const updateProfile = createAsyncThunk('auth/updateProfile', async ({ id, changes }, { rejectWithValue }) => {
   try {
     return await api.updateUserProfile(id, changes);
@@ -29,7 +41,7 @@ export const updateProfile = createAsyncThunk('auth/updateProfile', async ({ id,
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: loadState('session', null), // the logged-in user survives a page refresh
+    user: loadState('session', null), // shown immediately on refresh, then confirmed by restoreSession
     status: 'idle',
     error: null,
   },
@@ -58,13 +70,32 @@ const authSlice = createSlice({
         });
     });
 
-    builder.addCase(updateProfile.fulfilled, (state, action) => {
-      state.user = action.payload;
-    });
+    builder
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(restoreSession.fulfilled, (state, action) => {
+        state.user = action.payload; // fresh data from the server (role or profile may have changed)
+      })
+      .addCase(restoreSession.rejected, (state, action) => {
+        // 401 = the server no longer knows this session. Any other failure (server offline)
+        // keeps the user shown so the page does not log out just because the API is down.
+        if (action.payload?.status === 401) state.user = null;
+      });
   },
 });
 
 export const { logout } = authSlice.actions;
+
+/** Ends the session on the server, then clears the user from the store. */
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await api.logoutUser();
+  } catch {
+    // Even if the server cannot be reached, the user is logged out locally.
+  }
+  dispatch(logout());
+};
 export default authSlice.reducer;
 
 // ---------- Selectors ----------

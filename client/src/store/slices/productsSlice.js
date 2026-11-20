@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from '../../services/mockApi.js';
+import * as api from '../../services/api.js';
 
 // Each thunk wraps one async API call. On failure the error message is passed
 // to the reducer through rejectWithValue so the UI can display it.

@@ -8,6 +8,7 @@ import AdminRoute from './components/routing/AdminRoute.jsx';
 import AdminLayout from './components/layout/AdminLayout.jsx';
 import { fetchProducts } from './store/slices/productsSlice.js';
 import { fetchCategories } from './store/slices/categoriesSlice.js';
+import { restoreSession } from './store/slices/authSlice.js';
 
 // The home page is part of the main bundle; every other page is loaded on demand
 // (code splitting), which keeps the first download small.
@@ -34,10 +35,11 @@ const ManageOrders = lazy(() => import('./pages/admin/ManageOrders.jsx'));
 function App() {
   const dispatch = useDispatch();
 
-  // Load the catalogue once when the app starts.
+  // When the app starts: load the catalogue and ask the server who is logged in.
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
+    dispatch(restoreSession());
   }, [dispatch]);
 
   return (

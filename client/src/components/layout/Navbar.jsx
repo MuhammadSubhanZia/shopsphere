@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../common/Logo.jsx';
 import { selectCartCount } from '../../store/slices/cartSlice.js';
 import { selectWishlistCount } from '../../store/slices/wishlistSlice.js';
-import { selectUser, logout } from '../../store/slices/authSlice.js';
+import { selectUser, logoutUser } from '../../store/slices/authSlice.js';
 import { showToast } from '../../store/slices/uiSlice.js';
 import { getInitials } from '../../utils/formatters.js';
 import './Navbar.css';
@@ -116,8 +116,8 @@ export default function Navbar() {
     closeMenu();
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
     dispatch(showToast('You have been logged out', 'info'));
     closeMenu();
     navigate('/');
