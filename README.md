@@ -2,9 +2,14 @@
 
 > CS4032 – Web Programming · Fall 2026 · FAST-NUCES, Lahore
 
-ShopSphere is an e-commerce web application where customers browse, search and buy products online, and an administrator manages the catalogue, stock and orders. Prices are in Pakistani rupees (PKR).
+ShopSphere is a full-stack e-commerce web application where customers browse, search and buy products online, and an administrator manages the catalogue, stock and orders. Prices are in Pakistani rupees (PKR).
 
-This repository holds **Phase 1: the complete front-end**. There is no server yet: a promise-based mock API (`src/services/mockApi.js`) stores everything in the browser's `localStorage`, so every screen works end to end. In Phase 2 (Node.js / Express / MongoDB) only that service file is replaced by real `fetch` calls.
+It is a MERN-style project:
+
+| Part | Folder | Stack |
+| --- | --- | --- |
+| Front-end | [`client/`](client) | React 18, Vite, React Router, Redux Toolkit, Bootstrap 5 |
+| Back-end | [`server/`](server) | Node.js, Express, MongoDB with Mongoose, session cookies, bcrypt |
 
 ## Team
 
@@ -16,33 +21,55 @@ This repository holds **Phase 1: the complete front-end**. There is no server ye
 ## Features
 
 **Customer**
-- Register, log in and log out (validated forms, password-strength checklist, session kept across refreshes)
+- Register, log in and log out (validated forms, password-strength checklist, secure session cookie)
 - Browse products on a home page with featured items, deals and category tiles
 - Search, filter (category, price range, in-stock), sort and paginate products; filters live in the URL so results can be shared
-- Product detail page with image, rating, features tabs, quantity picker and related products
+- Product detail page with rating, features tabs, quantity picker and related products
 - Shopping cart: change quantity, remove items, promo codes (`SAVE10`, `WELCOME200`, `FREESHIP`), free-delivery progress bar
 - Wishlist with "move to cart"
-- Checkout with shipping details, cash on delivery or card payment (card number checked with the Luhn algorithm)
+- Checkout with shipping details, cash on delivery or card payment (card number checked with the Luhn algorithm; only the last 4 digits are kept)
 - Order history, order detail page with a status timeline (Pending → Processing → Shipped → Delivered), cancel order, print invoice
 - Profile page: edit details and change password
 
 **Administrator**
-- Dashboard: revenue, orders, customers, low-stock alerts, revenue by category
+- Dashboard: revenue, orders, low-stock alerts, revenue by category
 - Product management: add, edit, delete, search and filter, with live image preview
 - Category management with product counts (a category that still has products cannot be deleted)
-- Inventory: summary, adjustable low-stock threshold, quick restock (+10) and exact stock updates
+- Inventory: summary, adjustable low-stock threshold, quick restock and exact stock updates
 - Order management: filter and search, change status (customers see it instantly), view full order details, cancel and return stock
 
 ## Getting started
 
-Requires Node.js 18 or newer.
+Requirements: **Node.js 18+** and **MongoDB** (MongoDB Community Server installed locally, or a free MongoDB Atlas cluster).
 
 ```bash
+# 1. Install the dependencies of the root, client and server
 npm install
-npm run dev       # development server, usually http://localhost:5173
-npm run build     # production build in /dist
-npm run preview   # serve the production build
+npm run install:all
+
+# 2. Configure the server
+cd server
+cp .env.example .env        # Windows PowerShell: copy .env.example .env
+# open server/.env and check MONGODB_URI (local MongoDB works with the default)
+cd ..
+
+# 3. Load the demo data into MongoDB
+npm run seed
+
+# 4. Start the API (port 5000) and the React app (port 5173) together
+npm run dev
 ```
+
+Open <http://localhost:5173>. The API health check is at <http://localhost:5000/api/health>.
+
+| Command (run in the project root) | What it does |
+| --- | --- |
+| `npm run dev` | Starts the server and the client together |
+| `npm run seed` | Resets MongoDB to the demo data (**deletes** users, products, categories and orders) |
+| `npm test` | Runs the API tests (uses a separate `shopsphere_test` database) |
+| `npm run build` | Production build of the React app in `client/dist` |
+
+You can also run each part on its own: `npm run dev` inside `client/` or `server/`.
 
 ### Demo accounts
 
@@ -55,75 +82,75 @@ npm run preview   # serve the production build
 
 The login page has "Customer demo" and "Admin demo" buttons that fill in the credentials for you.
 
-> **Tip:** data lives in `localStorage` under keys starting with `shopsphere:`. To reset the demo to its original state, open the browser dev tools → Application → Local Storage and clear them (or run `localStorage.clear()` in the console), then refresh.
+## How it fits together
 
-## Tech stack
+```
+Browser (React app on :5173)
+   │  fetch("/api/...", credentials)         Vite dev server forwards /api
+   ▼
+Express API (:5000)  ──  middleware: helmet, cors, compression, morgan, json, sanitize, session
+   │  routes → controllers → services
+   ▼
+MongoDB (users, products, categories, orders, sessions)
+```
 
-| Technology | Used for |
-| --- | --- |
-| React 18 + Vite | Component-based UI and fast dev/build tooling |
-| React Router 6 | Client-side routing, nested layouts, route guards |
-| Redux Toolkit + React-Redux | Global state: products, categories, cart, wishlist, auth, orders, toasts |
-| Bootstrap 5 + Bootstrap Icons | Grid, navbar, forms, modals, tables, badges, icons |
-| Custom CSS (variables, Flexbox, Grid) | Design tokens and page-specific styling in `src/styles` and next to each component |
-| Modern JavaScript (ES6+) | Modules, destructuring, spread, array methods, `async/await`, Promises |
+- The browser never sees a password hash or the session contents: login sets an `httpOnly` cookie holding only a random session id.
+- Checkout sends only product ids and quantities. The server looks up prices and stock, applies the promo code and calculates the total itself.
+- Stock is reserved with atomic updates, so the last item cannot be sold twice, and it is returned when an order is cancelled.
+- The cart and wishlist are kept in the browser's `localStorage`.
+
+More detail, the full API table and the security measures are in [`server/README.md`](server/README.md).
 
 ## How the course topics are used
 
 | Course topic | Where to look |
 | --- | --- |
-| HTML & semantic markup | `index.html`, `<main>`, `<nav>`, `<section>`, `<address>`, labelled form controls, skip link |
-| CSS: selectors, box model, Flexbox, responsive design | `src/styles/theme.css`, `global.css`, `responsive.css`, per-component `.css` files |
-| Bootstrap | Grid (`row`/`col-*`), navbar, modals, forms, pagination, badges, tables throughout the pages |
-| JavaScript fundamentals & ES6 | `src/utils/*`, `src/services/*` |
-| Asynchronous JS (Promises, async/await) | `src/services/mockApi.js`, `createAsyncThunk` calls in `src/store/slices` |
-| React components, props, hooks | `src/components`, `src/pages`, custom hooks in `src/hooks` (`useForm`, `useDocumentTitle`) |
-| Controlled forms & validation | `src/utils/validators.js`, `useForm`, Login / Register / Checkout / Profile / admin forms |
-| Routing | `src/App.jsx`, `ProtectedRoute`, `AdminRoute`, URL search params on the Products page |
-| Redux | `src/store` – slices, async thunks, selectors, cross-slice `extraReducers` |
-| State persistence (storage, sessions) | `src/services/storage.js` – cart, wishlist and login session saved in `localStorage` |
-| Security basics | Input validation, React's automatic output escaping, role-based route guards, notes about hashing in the mock API |
-| Performance | `React.lazy` + `Suspense` code splitting, `useMemo`, memoised selectors |
+| HTML & semantic markup | `client/index.html`, `<main>`, `<nav>`, `<section>`, `<address>`, labelled form controls, skip link |
+| CSS: selectors, box model, Flexbox, responsive design | `client/src/styles`, per-component `.css` files |
+| Bootstrap | Grid, navbar, modals, forms, pagination, badges and tables throughout the pages |
+| JavaScript fundamentals, ES6 | `client/src/utils`, `server/src/utils` (modules, destructuring, spread, array methods) |
+| Asynchronous JS (Promises, async/await) | `client/src/services/api.js`, `createAsyncThunk` in `client/src/store/slices`, every controller in `server/src/controllers` |
+| React components, props, hooks | `client/src/components`, `client/src/pages`, custom hooks in `client/src/hooks` |
+| Redux | `client/src/store` – slices, async thunks, selectors |
+| Web servers and server-side programming (Node.js) | `server/src/index.js`, `server/src/app.js` |
+| RESTful routing | `server/src/routes` – resources, HTTP verbs and status codes |
+| Express and middleware | `server/src/middleware` and the middleware stack in `server/src/app.js` |
+| State management: cookies and sessions | `express-session` + MongoDB session store in `server/src/app.js`, `server/src/controllers/auth.js` |
+| NoSQL databases (MongoDB), CRUD | Mongoose models in `server/src/models`, CRUD in `server/src/controllers` |
+| Web services: RESTful services | The JSON API documented in `server/README.md`, consumed by `client/src/services/api.js` |
+| Security: XSS, cross-domain issues, passwords | httpOnly cookies, `helmet`, `cors`, input validation and sanitising, bcrypt, rate limiting, role checks |
+| Performance | `React.lazy` + `Suspense` code splitting, `useMemo`, response compression, atomic database updates |
 
 ## Project structure
 
 ```
-src/
-├── main.jsx · App.jsx
-├── styles/        theme.css (design tokens), global.css, responsive.css (small screens + print)
-├── data/          categories.js, products.js (seed data), cities.js, icons.js
-├── services/      mockApi.js (fake back-end), storage.js (localStorage helpers)
-├── utils/         formatters, pricing, validators, productFilters, orderStatus, inventory, errors
-├── hooks/         useForm, useDocumentTitle
-├── store/         index.js and slices/ (products, categories, cart, wishlist, auth, orders, ui)
-├── components/
-│   ├── common/    ProductImage, Rating, Spinner, EmptyState, Modal, ConfirmModal, FormField, Pagination, ...
-│   ├── layout/    Navbar, Footer, Layout, AdminLayout
-│   ├── product/   ProductCard, ProductGrid, FilterSidebar
-│   ├── cart/      CartItemRow, OrderSummary
-│   ├── orders/    StatusBadge, StatusTimeline
-│   ├── admin/     AdminPageHeader, StatCard, ProductFormModal, CategoryFormModal
-│   └── routing/   ProtectedRoute, AdminRoute, ScrollToTop
-└── pages/         Home, Products, ProductDetail, Cart, Wishlist, Login, Register, Checkout,
-                   OrderSuccess, Orders, OrderDetail, Profile, NotFound
-    └── admin/     Dashboard, ManageProducts, ManageCategories, Inventory, ManageOrders
+shopsphere/
+├── client/                React application
+│   ├── src/
+│   │   ├── components/    common, layout, product, cart, orders, admin, routing
+│   │   ├── pages/         customer pages and pages/admin
+│   │   ├── store/         Redux Toolkit slices
+│   │   ├── services/      api.js (fetch client), storage.js (localStorage helpers)
+│   │   ├── utils/ hooks/ data/ styles/
+│   │   └── main.jsx · App.jsx
+│   └── vite.config.js     dev server and /api proxy
+├── server/                Express API
+│   ├── src/
+│   │   ├── config/ models/ routes/ controllers/ services/
+│   │   ├── middleware/ validators/ utils/ seed/
+│   │   └── index.js · app.js
+│   └── tests/             API integration tests
+└── package.json           root scripts (dev, seed, test, build)
 ```
 
-## How the mock back-end works
+## Known limitations
 
-- `mockApi.js` exposes functions such as `getProducts`, `loginUser` and `createOrder`. Each returns a Promise that resolves after a short delay, like a real network call, and rejects with an `ApiError` when something is wrong.
-- On first run the collections (products, categories, users, orders) are seeded from `src/data` and saved to `localStorage`.
-- `createOrder` re-checks prices and stock the way a server would, instead of trusting the browser, and cancelling an order puts the stock back.
-- Passwords are stored in plain text **only** because this is a throw-away mock. The real back-end will hash them (bcrypt) and issue tokens (JWT).
-- Products use generated placeholder images (a coloured tile and an icon) so the project has no external image dependencies.
-
-## Known limitations (Phase 1)
-
-- Data exists only in the current browser; there is no real server, payment gateway or e-mail.
-- Card payment is a simulated form: the card number is validated but never stored (only the last four digits are kept on the order).
-- Product images are placeholders; real uploads arrive with the back-end.
+- Card payment is simulated: the card number is validated in the browser but never sent or stored (only the last four digits are kept on the order). There is no real payment gateway or e-mail.
+- Product images are generated placeholders (a coloured tile and an icon); image upload is not implemented.
+- Cart and wishlist live in the browser, so they do not follow a user to another device.
 
 ## Roadmap
 
 - [x] Phase 1 – Front-end
-- [ ] Phase 2 – Back-end (Node.js / Express / MongoDB) replacing `mockApi.js`
+- [x] Phase 2 – Back-end (Node.js / Express / MongoDB) connected to the front-end
+- [ ] Deployment (hosted API, MongoDB Atlas and the built React app over HTTPS)
