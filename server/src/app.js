@@ -9,6 +9,8 @@ import { env } from './config/env.js';
 import { sanitize } from './middleware/sanitize.js';
 import { notFound, errorHandler } from './middleware/error.js';
 import authRoutes from './routes/auth.js';
+import productRoutes from './routes/products.js';
+import categoryRoutes from './routes/categories.js';
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -60,6 +62,8 @@ export function createApp({ sessionStore } = {}) {
     res.json({ status: 'ok', uptime: Math.round(process.uptime()), time: new Date().toISOString() });
   });
   app.use('/api/auth', authRoutes);
+  app.use('/api/products', productRoutes);
+  app.use('/api/categories', categoryRoutes);
 
   // ---------- Errors ----------
   app.use(notFound);
